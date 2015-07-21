@@ -17,11 +17,12 @@
 #include "NtpReply.h"
 #include <cmath> /* For std::pow. */
 #include "NtpReply_p.h"
+#include <memory>
 
 NtpReply::NtpReply(): d(new NtpReplyPrivate()) {
   /* We don't use shared null because NtpReplyPrivate isn't a POD type and
    * allocation overhead is negligible here. */
-  qMemSet(&d->packet, 0, sizeof(d->packet));
+  memset(&d->packet, 0, sizeof(d->packet));
 }
 
 NtpReply::NtpReply(NtpReplyPrivate *dd): d(dd) {

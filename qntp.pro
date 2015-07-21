@@ -3,6 +3,8 @@ TARGET   = qntp
 QT      -= gui
 QT      += network
 
+DESTDIR_TARGET = lib
+
 MOC_DIR = temp/moc
 
 INCLUDEPATH += \
@@ -11,6 +13,7 @@ INCLUDEPATH += \
 CONFIG(debug, debug|release) {
   DESTDIR         = debug
   OBJECTS_DIR     = debug
+  TARGET          = qntpd
 }
 
 CONFIG(release, debug|release) {

@@ -21,6 +21,8 @@
 #include "NtpReply.h"
 #include "NtpReply_p.h"
 
+#include <memory>
+
 NtpClient::NtpClient(QObject *parent): QObject(parent) {
   init(QHostAddress::Any, 0);
 }
@@ -46,7 +48,7 @@ bool NtpClient::sendRequest(const QHostAddress &address, quint16 port) {
 
   /* Initialize the NTP packet. */
   NtpPacket packet;
-  qMemSet(&packet, 0, sizeof(packet));
+  memset(&packet, 0, sizeof(packet));
   packet.flags.mode = ClientMode;
   packet.flags.versionNumber = 4;
   packet.transmitTimestamp = NtpTimestamp::fromDateTime(QDateTime::currentDateTimeUtc());
@@ -61,7 +63,7 @@ bool NtpClient::sendRequest(const QHostAddress &address, quint16 port) {
 void NtpClient::readPendingDatagrams() {
   while (mSocket->hasPendingDatagrams()) {
     NtpFullPacket packet;
-    qMemSet(&packet, 0, sizeof(packet));
+    memset(&packet, 0, sizeof(packet));
 
     QHostAddress address;
     quint16 port;
